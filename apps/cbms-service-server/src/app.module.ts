@@ -1,3 +1,4 @@
+import { RedisModule } from "./redis/redis.module";
 import { Module } from "@nestjs/common";
 import { WasteManagementModule } from "./wasteManagement/wasteManagement.module";
 import { HouseholdsCharacteristicsModule } from "./householdsCharacteristics/householdsCharacteristics.module";
@@ -24,6 +25,7 @@ import { UserModule } from "./user/user.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
+import { KafkaModule } from "./redis/kafka.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
@@ -38,6 +40,7 @@ import { AuthModule } from "./auth/auth.module";
   imports: [
     ACLModule,
     AuthModule,
+    KafkaModule,
     WasteManagementModule,
     HouseholdsCharacteristicsModule,
     SalariesAndWagesModule,
@@ -82,6 +85,7 @@ import { AuthModule } from "./auth/auth.module";
       inject: [ConfigService],
       imports: [ConfigModule],
     }),
+    RedisModule,
   ],
   providers: [],
 })

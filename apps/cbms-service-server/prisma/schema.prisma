@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DB_URL")
 }
 
@@ -12,7 +12,7 @@ model WasteManagement {
   createdAt                  DateTime                                       @default(now())
   frequencyOfWasteCollection EnumWasteManagementFrequencyOfWasteCollection?
   hazardousWasteDisposal     EnumWasteManagementHazardousWasteDisposal?
-  id                         String                                         @id @default(cuid())
+  id                         String                                         @id @default(auto()) @map("_id") @db.ObjectId
   recyclingPractices         Boolean?
   updatedAt                  DateTime                                       @updatedAt
   wasteDisposalMethod        EnumWasteManagementWasteDisposalMethod?
@@ -23,7 +23,7 @@ model HouseholdsCharacteristics {
   createdAt               DateTime                                         @default(now())
   headOfHousehold         String?
   householdIncome         Float?
-  id                      String                                           @id @default(cuid())
+  id                      String                                           @id @default(auto()) @map("_id") @db.ObjectId
   mainSourceOfIncome      EnumHouseholdsCharacteristicsMainSourceOfIncome?
   monthlyExpenses         Float?
   numberOfDependents      Int?
@@ -37,7 +37,7 @@ model SalariesAndWages {
   createdAt          DateTime                                @default(now())
   employerName       String?
   frequencyOfPayment EnumSalariesAndWagesFrequencyOfPayment?
-  id                 String                                  @id @default(cuid())
+  id                 String                                  @id @default(auto()) @map("_id") @db.ObjectId
   jobTitle           String?
   monthlySalary      Float?
   otherBenefits      String?
@@ -50,7 +50,7 @@ model HouseCharacteristics {
   createdAt            DateTime                                      @default(now())
   electricityAccess    Boolean?
   houseType            EnumHouseCharacteristicsHouseType?
-  id                   String                                        @id @default(cuid())
+  id                   String                                        @id @default(auto()) @map("_id") @db.ObjectId
   numberOfRooms        Int?
   ownershipStatus      EnumHouseCharacteristicsOwnershipStatus?
   sanitationFacility   EnumHouseCharacteristicsSanitationFacility?
@@ -68,7 +68,7 @@ model Demography {
   employmentStatus      EnumDemographyEmploymentStatus?
   ethnicity             String?
   gender                EnumDemographyGender?
-  id                    String                               @id @default(cuid())
+  id                    String                               @id @default(auto()) @map("_id") @db.ObjectId
   maritalStatus         EnumDemographyMaritalStatus?
   updatedAt             DateTime                             @updatedAt
 }
@@ -81,7 +81,7 @@ model Identification {
   email         String?
   fullName      String?
   gender        EnumIdentificationGender?
-  id            String                           @id @default(cuid())
+  id            String                           @id @default(auto()) @map("_id") @db.ObjectId
   maritalStatus EnumIdentificationMaritalStatus?
   nationalId    String?
   updatedAt     DateTime                         @updatedAt
@@ -92,7 +92,7 @@ model SourceOfIncome {
   amountFromSecondarySource Float?
   createdAt                 DateTime                                   @default(now())
   frequencyOfIncome         EnumSourceOfIncomeFrequencyOfIncome?
-  id                        String                                     @id @default(cuid())
+  id                        String                                     @id @default(auto()) @map("_id") @db.ObjectId
   otherSourcesOfIncome      String?
   primarySourceOfIncome     EnumSourceOfIncomePrimarySourceOfIncome?
   secondarySourceOfIncome   EnumSourceOfIncomeSecondarySourceOfIncome?
@@ -102,7 +102,7 @@ model SourceOfIncome {
 model Crime {
   createdAt             DateTime                @default(now())
   dateOfIncident        DateTime?
-  id                    String                  @id @default(cuid())
+  id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
   incidentsOfCrime      String?
   locationOfIncident    String?
   natureOfCrime         EnumCrimeNatureOfCrime?
@@ -115,7 +115,7 @@ model PoliticalParticipation {
   activeInCommunityOrganizations  Boolean?
   createdAt                       DateTime @default(now())
   hasVotedInLastElection          Boolean?
-  id                              String   @id @default(cuid())
+  id                              String   @id @default(auto()) @map("_id") @db.ObjectId
   interestInPublicOffice          Boolean?
   participationInPoliticalRallies Boolean?
   politicalPartyAffiliation       String?
@@ -128,7 +128,7 @@ model Housing {
   createdAt                    DateTime                         @default(now())
   electricityAccess            Boolean?
   houseType                    EnumHousingHouseType?
-  id                           String                           @id @default(cuid())
+  id                           String                           @id @default(auto()) @map("_id") @db.ObjectId
   neighborhoodType             EnumHousingNeighborhoodType?
   numberOfRooms                Int?
   ownershipStatus              EnumHousingOwnershipStatus?
@@ -143,7 +143,7 @@ model HealthAndOtherCharacteristics {
   createdAt             DateTime                                             @default(now())
   disabilityStatus      Boolean?
   healthInsuranceStatus Boolean?
-  id                    String                                               @id @default(cuid())
+  id                    String                                               @id @default(auto()) @map("_id") @db.ObjectId
   primaryHealthProvider String?
   updatedAt             DateTime                                             @updatedAt
   vaccinationStatus     Boolean?
@@ -154,7 +154,7 @@ model EducationAndLiteracy {
   currentlyEnrolled            Boolean?
   fieldOfStudy                 String?
   highestEducationalAttainment EnumEducationAndLiteracyHighestEducationalAttainment?
-  id                           String                                                @id @default(cuid())
+  id                           String                                                @id @default(auto()) @map("_id") @db.ObjectId
   literacyLevel                EnumEducationAndLiteracyLiteracyLevel?
   schoolAddress                String?
   schoolName                   String?
@@ -169,7 +169,7 @@ model CropFarming {
   commonPestsAndDiseases      String?
   createdAt                   DateTime                         @default(now())
   farmingEquipmentUsed        String?
-  id                          String                           @id @default(cuid())
+  id                          String                           @id @default(auto()) @map("_id") @db.ObjectId
   irrigationMethod            EnumCropFarmingIrrigationMethod?
   typeOfCropsGrown            String?
   updatedAt                   DateTime                         @updatedAt
@@ -182,7 +182,7 @@ model Climate {
   climateType                EnumClimateClimateType?
   commonWeatherEvents        String?
   createdAt                  DateTime                @default(now())
-  id                         String                  @id @default(cuid())
+  id                         String                  @id @default(auto()) @map("_id") @db.ObjectId
   impactOnLivelihood         String?
   seasonalChanges            String?
   updatedAt                  DateTime                @updatedAt
@@ -192,7 +192,7 @@ model EconomicActivity {
   createdAt          DateTime                              @default(now())
   employmentStatus   EnumEconomicActivityEmploymentStatus?
   hoursWorkedPerWeek Int?
-  id                 String                                @id @default(cuid())
+  id                 String                                @id @default(auto()) @map("_id") @db.ObjectId
   industry           String?
   monthlyIncome      Float?
   occupation         String?
@@ -205,7 +205,7 @@ model WaterAndSanitation {
   accessToSanitationFacility Boolean?
   createdAt                  DateTime                                          @default(now())
   frequencyOfWasteCollection EnumWaterAndSanitationFrequencyOfWasteCollection?
-  id                         String                                            @id @default(cuid())
+  id                         String                                            @id @default(auto()) @map("_id") @db.ObjectId
   sanitationFacilityType     EnumWaterAndSanitationSanitationFacilityType?
   updatedAt                  DateTime                                          @updatedAt
   wastewaterDisposalMethod   EnumWaterAndSanitationWastewaterDisposalMethod?
@@ -219,7 +219,7 @@ model Nutrition {
   createdAt              DateTime                    @default(now())
   dietaryIntake          String?
   height                 Float?
-  id                     String                      @id @default(cuid())
+  id                     String                      @id @default(auto()) @map("_id") @db.ObjectId
   mealFrequency          EnumNutritionMealFrequency?
   nutritionalSupplements String?
   specialDietaryNeeds    String?
@@ -234,7 +234,7 @@ model AgricultureFarming {
   commonPestsAndDiseases      String?
   createdAt                   DateTime                                @default(now())
   farmingEquipmentUsed        String?
-  id                          String                                  @id @default(cuid())
+  id                          String                                  @id @default(auto()) @map("_id") @db.ObjectId
   irrigationMethod            EnumAgricultureFarmingIrrigationMethod?
   typeOfCropsGrown            String?
   updatedAt                   DateTime                                @updatedAt
@@ -246,7 +246,7 @@ model LivestockRaising {
   commonDiseases             String?
   createdAt                  DateTime                              @default(now())
   feedingPractices           String?
-  id                         String                                @id @default(cuid())
+  id                         String                                @id @default(auto()) @map("_id") @db.ObjectId
   numberOfAnimals            Int?
   purposeOfRaising           EnumLivestockRaisingPurposeOfRaising?
   typeOfLivestockRaised      String?
@@ -261,7 +261,7 @@ model Fishing {
   createdAt              DateTime                  @default(now())
   fishingGearUsed        String?
   fishingGrounds         String?
-  id                     String                    @id @default(cuid())
+  id                     String                    @id @default(auto()) @map("_id") @db.ObjectId
   typeOfFishing          EnumFishingTypeOfFishing?
   updatedAt              DateTime                  @updatedAt
 }
@@ -270,7 +270,7 @@ model OtherSourceOfIncome {
   amount            Float?
   createdAt         DateTime                          @default(now())
   frequency         EnumOtherSourceOfIncomeFrequency?
-  id                String                            @id @default(cuid())
+  id                String                            @id @default(auto()) @map("_id") @db.ObjectId
   notes             String?
   sourceDescription String?
   updatedAt         DateTime                          @updatedAt
@@ -280,7 +280,7 @@ model User {
   createdAt DateTime @default(now())
   email     String?  @unique
   firstName String?
-  id        String   @id @default(cuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   lastName  String?
   password  String
   roles     Json
