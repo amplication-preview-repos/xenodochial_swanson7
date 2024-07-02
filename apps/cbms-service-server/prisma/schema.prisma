@@ -1,0 +1,461 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model WasteManagement {
+  compostingPractices        Boolean?
+  createdAt                  DateTime                                       @default(now())
+  frequencyOfWasteCollection EnumWasteManagementFrequencyOfWasteCollection?
+  hazardousWasteDisposal     EnumWasteManagementHazardousWasteDisposal?
+  id                         String                                         @id @default(auto()) @map("_id") @db.ObjectId
+  recyclingPractices         Boolean?
+  updatedAt                  DateTime                                       @updatedAt
+  wasteDisposalMethod        EnumWasteManagementWasteDisposalMethod?
+  wasteSegregationPractices  Boolean?
+}
+
+model HouseholdsCharacteristics {
+  createdAt               DateTime                                         @default(now())
+  headOfHousehold         String?
+  householdIncome         Float?
+  id                      String                                           @id @default(auto()) @map("_id") @db.ObjectId
+  mainSourceOfIncome      EnumHouseholdsCharacteristicsMainSourceOfIncome?
+  monthlyExpenses         Float?
+  numberOfDependents      Int?
+  numberOfEmployedMembers Int?
+  numberOfMembers         Int?
+  primaryLanguageSpoken   String?
+  updatedAt               DateTime                                         @updatedAt
+}
+
+model SalariesAndWages {
+  createdAt          DateTime                                @default(now())
+  employerName       String?
+  frequencyOfPayment EnumSalariesAndWagesFrequencyOfPayment?
+  id                 String                                  @id @default(auto()) @map("_id") @db.ObjectId
+  jobTitle           String?
+  monthlySalary      Float?
+  otherBenefits      String?
+  typeOfEmployment   EnumSalariesAndWagesTypeOfEmployment?
+  updatedAt          DateTime                                @updatedAt
+}
+
+model HouseCharacteristics {
+  constructionMaterial EnumHouseCharacteristicsConstructionMaterial?
+  createdAt            DateTime                                      @default(now())
+  electricityAccess    Boolean?
+  houseType            EnumHouseCharacteristicsHouseType?
+  id                   String                                        @id @default(auto()) @map("_id") @db.ObjectId
+  numberOfRooms        Int?
+  ownershipStatus      EnumHouseCharacteristicsOwnershipStatus?
+  sanitationFacility   EnumHouseCharacteristicsSanitationFacility?
+  updatedAt            DateTime                                      @updatedAt
+  waterSupply          EnumHouseCharacteristicsWaterSupply?
+  yearBuilt            Int?
+}
+
+model Demography {
+  age                   Int?
+  citizenship           String?
+  createdAt             DateTime                             @default(now())
+  disabilityStatus      Boolean?
+  educationalAttainment EnumDemographyEducationalAttainment?
+  employmentStatus      EnumDemographyEmploymentStatus?
+  ethnicity             String?
+  gender                EnumDemographyGender?
+  id                    String                               @id @default(auto()) @map("_id") @db.ObjectId
+  maritalStatus         EnumDemographyMaritalStatus?
+  updatedAt             DateTime                             @updatedAt
+}
+
+model Identification {
+  address       String?
+  contactNumber String?
+  createdAt     DateTime                         @default(now())
+  dateOfBirth   DateTime?
+  email         String?
+  fullName      String?
+  gender        EnumIdentificationGender?
+  id            String                           @id @default(auto()) @map("_id") @db.ObjectId
+  maritalStatus EnumIdentificationMaritalStatus?
+  nationalId    String?
+  updatedAt     DateTime                         @updatedAt
+}
+
+model SourceOfIncome {
+  amountFromPrimarySource   Float?
+  amountFromSecondarySource Float?
+  createdAt                 DateTime                                   @default(now())
+  frequencyOfIncome         EnumSourceOfIncomeFrequencyOfIncome?
+  id                        String                                     @id @default(auto()) @map("_id") @db.ObjectId
+  otherSourcesOfIncome      String?
+  primarySourceOfIncome     EnumSourceOfIncomePrimarySourceOfIncome?
+  secondarySourceOfIncome   EnumSourceOfIncomeSecondarySourceOfIncome?
+  updatedAt                 DateTime                                   @updatedAt
+}
+
+model Crime {
+  createdAt             DateTime                @default(now())
+  dateOfIncident        DateTime?
+  id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
+  incidentsOfCrime      String?
+  locationOfIncident    String?
+  natureOfCrime         EnumCrimeNatureOfCrime?
+  outcome               String?
+  reportedToAuthorities Boolean?
+  updatedAt             DateTime                @updatedAt
+}
+
+model PoliticalParticipation {
+  activeInCommunityOrganizations  Boolean?
+  createdAt                       DateTime @default(now())
+  hasVotedInLastElection          Boolean?
+  id                              String   @id @default(auto()) @map("_id") @db.ObjectId
+  interestInPublicOffice          Boolean?
+  participationInPoliticalRallies Boolean?
+  politicalPartyAffiliation       String?
+  updatedAt                       DateTime @updatedAt
+  voterRegistrationStatus         Boolean?
+}
+
+model Housing {
+  constructionMaterial         EnumHousingConstructionMaterial?
+  createdAt                    DateTime                         @default(now())
+  electricityAccess            Boolean?
+  houseType                    EnumHousingHouseType?
+  id                           String                           @id @default(auto()) @map("_id") @db.ObjectId
+  neighborhoodType             EnumHousingNeighborhoodType?
+  numberOfRooms                Int?
+  ownershipStatus              EnumHousingOwnershipStatus?
+  proximityToEssentialServices String?
+  updatedAt                    DateTime                         @updatedAt
+  yearBuilt                    Int?
+}
+
+model HealthAndOtherCharacteristics {
+  accessToHealthcare    EnumHealthAndOtherCharacteristicsAccessToHealthcare?
+  chronicDiseases       String?
+  createdAt             DateTime                                             @default(now())
+  disabilityStatus      Boolean?
+  healthInsuranceStatus Boolean?
+  id                    String                                               @id @default(auto()) @map("_id") @db.ObjectId
+  primaryHealthProvider String?
+  updatedAt             DateTime                                             @updatedAt
+  vaccinationStatus     Boolean?
+}
+
+model EducationAndLiteracy {
+  createdAt                    DateTime                                              @default(now())
+  currentlyEnrolled            Boolean?
+  fieldOfStudy                 String?
+  highestEducationalAttainment EnumEducationAndLiteracyHighestEducationalAttainment?
+  id                           String                                                @id @default(auto()) @map("_id") @db.ObjectId
+  literacyLevel                EnumEducationAndLiteracyLiteracyLevel?
+  schoolAddress                String?
+  schoolName                   String?
+  updatedAt                    DateTime                                              @updatedAt
+  vocationalTraining           Boolean?
+}
+
+model CropFarming {
+  accessToAgriculturalSupport Boolean?
+  annualYield                 Float?
+  areaCultivated              Float?
+  commonPestsAndDiseases      String?
+  createdAt                   DateTime                         @default(now())
+  farmingEquipmentUsed        String?
+  id                          String                           @id @default(auto()) @map("_id") @db.ObjectId
+  irrigationMethod            EnumCropFarmingIrrigationMethod?
+  typeOfCropsGrown            String?
+  updatedAt                   DateTime                         @updatedAt
+}
+
+model Climate {
+  accessToClimateInformation Boolean?
+  averageAnnualRainfall      Float?
+  averageTemperature         Float?
+  climateType                EnumClimateClimateType?
+  commonWeatherEvents        String?
+  createdAt                  DateTime                @default(now())
+  id                         String                  @id @default(auto()) @map("_id") @db.ObjectId
+  impactOnLivelihood         String?
+  seasonalChanges            String?
+  updatedAt                  DateTime                @updatedAt
+}
+
+model EconomicActivity {
+  createdAt          DateTime                              @default(now())
+  employmentStatus   EnumEconomicActivityEmploymentStatus?
+  hoursWorkedPerWeek Int?
+  id                 String                                @id @default(auto()) @map("_id") @db.ObjectId
+  industry           String?
+  monthlyIncome      Float?
+  occupation         String?
+  typeOfEmployment   EnumEconomicActivityTypeOfEmployment?
+  updatedAt          DateTime                              @updatedAt
+  workplaceAddress   String?
+}
+
+model WaterAndSanitation {
+  accessToSanitationFacility Boolean?
+  createdAt                  DateTime                                          @default(now())
+  frequencyOfWasteCollection EnumWaterAndSanitationFrequencyOfWasteCollection?
+  id                         String                                            @id @default(auto()) @map("_id") @db.ObjectId
+  sanitationFacilityType     EnumWaterAndSanitationSanitationFacilityType?
+  updatedAt                  DateTime                                          @updatedAt
+  wastewaterDisposalMethod   EnumWaterAndSanitationWastewaterDisposalMethod?
+  waterAvailability          EnumWaterAndSanitationWaterAvailability?
+  waterQuality               EnumWaterAndSanitationWaterQuality?
+  waterSource                EnumWaterAndSanitationWaterSource?
+}
+
+model Nutrition {
+  accessToNutritiousFood Boolean?
+  createdAt              DateTime                    @default(now())
+  dietaryIntake          String?
+  height                 Float?
+  id                     String                      @id @default(auto()) @map("_id") @db.ObjectId
+  mealFrequency          EnumNutritionMealFrequency?
+  nutritionalSupplements String?
+  specialDietaryNeeds    String?
+  updatedAt              DateTime                    @updatedAt
+  weight                 Float?
+}
+
+model AgricultureFarming {
+  accessToAgriculturalSupport Boolean?
+  annualYield                 Float?
+  areaCultivated              Float?
+  commonPestsAndDiseases      String?
+  createdAt                   DateTime                                @default(now())
+  farmingEquipmentUsed        String?
+  id                          String                                  @id @default(auto()) @map("_id") @db.ObjectId
+  irrigationMethod            EnumAgricultureFarmingIrrigationMethod?
+  typeOfCropsGrown            String?
+  updatedAt                   DateTime                                @updatedAt
+}
+
+model LivestockRaising {
+  accessToVeterinaryServices Boolean?
+  annualProduction           Float?
+  commonDiseases             String?
+  createdAt                  DateTime                              @default(now())
+  feedingPractices           String?
+  id                         String                                @id @default(auto()) @map("_id") @db.ObjectId
+  numberOfAnimals            Int?
+  purposeOfRaising           EnumLivestockRaisingPurposeOfRaising?
+  typeOfLivestockRaised      String?
+  updatedAt                  DateTime                              @updatedAt
+}
+
+model Fishing {
+  accessToFishingSupport Boolean?
+  annualCatch            Float?
+  commonIssuesFaced      String?
+  commonSpeciesCaught    String?
+  createdAt              DateTime                  @default(now())
+  fishingGearUsed        String?
+  fishingGrounds         String?
+  id                     String                    @id @default(auto()) @map("_id") @db.ObjectId
+  typeOfFishing          EnumFishingTypeOfFishing?
+  updatedAt              DateTime                  @updatedAt
+}
+
+model OtherSourceOfIncome {
+  amount            Float?
+  createdAt         DateTime                          @default(now())
+  frequency         EnumOtherSourceOfIncomeFrequency?
+  id                String                            @id @default(auto()) @map("_id") @db.ObjectId
+  notes             String?
+  sourceDescription String?
+  updatedAt         DateTime                          @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+enum EnumWasteManagementFrequencyOfWasteCollection {
+  Option1
+}
+
+enum EnumWasteManagementHazardousWasteDisposal {
+  Option1
+}
+
+enum EnumWasteManagementWasteDisposalMethod {
+  Option1
+}
+
+enum EnumHouseholdsCharacteristicsMainSourceOfIncome {
+  Option1
+}
+
+enum EnumSalariesAndWagesFrequencyOfPayment {
+  Option1
+}
+
+enum EnumSalariesAndWagesTypeOfEmployment {
+  Option1
+}
+
+enum EnumHouseCharacteristicsConstructionMaterial {
+  Option1
+}
+
+enum EnumHouseCharacteristicsHouseType {
+  Option1
+}
+
+enum EnumHouseCharacteristicsOwnershipStatus {
+  Option1
+}
+
+enum EnumHouseCharacteristicsSanitationFacility {
+  Option1
+}
+
+enum EnumHouseCharacteristicsWaterSupply {
+  Option1
+}
+
+enum EnumDemographyEducationalAttainment {
+  Option1
+}
+
+enum EnumDemographyEmploymentStatus {
+  Option1
+}
+
+enum EnumDemographyGender {
+  Option1
+}
+
+enum EnumDemographyMaritalStatus {
+  Option1
+}
+
+enum EnumIdentificationGender {
+  Option1
+}
+
+enum EnumIdentificationMaritalStatus {
+  Option1
+}
+
+enum EnumSourceOfIncomeFrequencyOfIncome {
+  Option1
+}
+
+enum EnumSourceOfIncomePrimarySourceOfIncome {
+  Option1
+}
+
+enum EnumSourceOfIncomeSecondarySourceOfIncome {
+  Option1
+}
+
+enum EnumCrimeNatureOfCrime {
+  Option1
+}
+
+enum EnumHousingConstructionMaterial {
+  Option1
+}
+
+enum EnumHousingHouseType {
+  Option1
+}
+
+enum EnumHousingNeighborhoodType {
+  Option1
+}
+
+enum EnumHousingOwnershipStatus {
+  Option1
+}
+
+enum EnumHealthAndOtherCharacteristicsAccessToHealthcare {
+  Option1
+}
+
+enum EnumEducationAndLiteracyHighestEducationalAttainment {
+  Option1
+}
+
+enum EnumEducationAndLiteracyLiteracyLevel {
+  Option1
+}
+
+enum EnumCropFarmingIrrigationMethod {
+  Option1
+}
+
+enum EnumClimateClimateType {
+  Option1
+}
+
+enum EnumEconomicActivityEmploymentStatus {
+  Option1
+}
+
+enum EnumEconomicActivityTypeOfEmployment {
+  Option1
+}
+
+enum EnumWaterAndSanitationFrequencyOfWasteCollection {
+  Option1
+}
+
+enum EnumWaterAndSanitationSanitationFacilityType {
+  Option1
+}
+
+enum EnumWaterAndSanitationWastewaterDisposalMethod {
+  Option1
+}
+
+enum EnumWaterAndSanitationWaterAvailability {
+  Option1
+}
+
+enum EnumWaterAndSanitationWaterQuality {
+  Option1
+}
+
+enum EnumWaterAndSanitationWaterSource {
+  Option1
+}
+
+enum EnumNutritionMealFrequency {
+  Option1
+}
+
+enum EnumAgricultureFarmingIrrigationMethod {
+  Option1
+}
+
+enum EnumLivestockRaisingPurposeOfRaising {
+  Option1
+}
+
+enum EnumFishingTypeOfFishing {
+  Option1
+}
+
+enum EnumOtherSourceOfIncomeFrequency {
+  Option1
+}
